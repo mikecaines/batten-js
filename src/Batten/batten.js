@@ -1,28 +1,28 @@
 "use strict";
 
 /**
- * @namespace batten
+ * @namespace Batten
  */
-if (!self.batten) self.batten = {};
+if (!self.Batten) self.Batten = {};
 
 
 
 
 /**
- * @class batten.Model
- * @extends ok.HashMap
+ * @class Batten.Model
+ * @extends Ok.HashMap
  */
-batten.Model = ok.extendObject(ok.HashMap);
+Batten.Model = Ok.extendObject(Ok.HashMap);
 
 
 
 
 /**
- * @class batten.ComponentResolver
+ * @class Batten.ComponentResolver
  */
-batten.ComponentResolver = function () {};
+Batten.ComponentResolver = function () {};
 
-batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart) {
+Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart) {
 	var component, link, namespace, className, k, chain;
 
 	chain = [];
@@ -56,7 +56,7 @@ batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 /**
  * @returns {string}
  */
-batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart) {
+Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart) {
 	var className;
 
 	className = aLink.moduleClassNamePart || '';
@@ -71,9 +71,9 @@ batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNa
 
 /**
  * @param aCode
- * @class batten.Controller
+ * @class Batten.Controller
  */
-batten.Controller = function (aCode) {
+Batten.Controller = function (aCode) {
 	this._bc_model = null;
 	this._bc_code = aCode+'';
 };
@@ -82,14 +82,14 @@ batten.Controller = function (aCode) {
  * @private
  * @static
  */
-batten.Controller._bc_baseChain = null;
+Batten.Controller._bc_baseChain = null;
 
 /**
  * Sets the base chain.
  * @param {object} aData
  * @static
  */
-batten.Controller.setBaseChain = function (aData) {
+Batten.Controller.setBaseChain = function (aData) {
 	this._bc_baseChain = aData;
 };
 
@@ -97,16 +97,16 @@ batten.Controller.setBaseChain = function (aData) {
  * @static
  * @returns {object}
  */
-batten.Controller.getBaseChain = function () {
+Batten.Controller.getBaseChain = function () {
 	return this._bc_baseChain;
 };
 
 /**
  * @static
- * @returns {batten.ComponentResolver}
+ * @returns {Batten.ComponentResolver}
  */
-batten.Controller.getComponentResolver = function () {
-	return new batten.ComponentResolver();
+Batten.Controller.getComponentResolver = function () {
+	return new Batten.ComponentResolver();
 };
 
 /**
@@ -114,13 +114,13 @@ batten.Controller.getComponentResolver = function () {
  * @returns {object|null}
  * @static
  */
-batten.Controller.getChain = function (aModuleCode) {
-	var chain = ok.cloneObject(this.getBaseChain());
+Batten.Controller.getChain = function (aModuleCode) {
+	var chain = Ok.cloneObject(this.getBaseChain());
 
 	if (aModuleCode != null) {
 		chain[aModuleCode] = {
 			namespace: 'app',
-			moduleClassNamePart: ok.strUpperCaseFirst(aModuleCode)
+			moduleClassNamePart: Ok.strUpperCaseFirst(aModuleCode)
 		};
 	}
 
@@ -130,10 +130,10 @@ batten.Controller.getChain = function (aModuleCode) {
 /**
  * Creates an instance of the appropriate module class.
  * @param aCode
- * @returns {batten.Controller|null}
+ * @returns {Batten.Controller|null}
  * @static
  */
-batten.Controller.fromCode = function (aCode) {
+Batten.Controller.fromCode = function (aCode) {
 	var controller, component;
 
 	component = app.Controller.getComponentResolver().resolveComponent(
@@ -152,26 +152,26 @@ batten.Controller.fromCode = function (aCode) {
 	return controller;
 };
 
-batten.Controller.prototype.getModel = function () {
+Batten.Controller.prototype.getModel = function () {
 	if (!this._bc_model) {
-		this._bc_model = new batten.Model();
+		this._bc_model = new Batten.Model();
 	}
 
 	return this._bc_model;
 };
 
-batten.Controller.prototype.hookup = function () {
+Batten.Controller.prototype.hookup = function () {
 
 };
 
-batten.Controller.prototype.init = function () {
+Batten.Controller.prototype.init = function () {
 
 };
 
-batten.Controller.prototype.getCode = function () {
+Batten.Controller.prototype.getCode = function () {
 	return this._bc_code;
 };
 
-batten.Controller.prototype.go = function () {
+Batten.Controller.prototype.go = function () {
 
 };
