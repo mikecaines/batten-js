@@ -35,7 +35,7 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 	for (k = 0; k < chain.length; k++) {
 		link = chain[k];
 
-		namespace = link.namespace != null ? self[link.namespace] : self;
+		namespace = link.namespace != null ? Ok.objectGet(self, link.namespace) : self;
 
 		if (namespace) {
 			className = this.generateClassName(link, aClassNamePart);
@@ -59,7 +59,7 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart) {
 	var className;
 
-	className = aLink.moduleClassNamePart || '';
+	className = '';
 
 	className += aClassNamePart;
 
@@ -119,8 +119,7 @@ Batten.Controller.getChain = function (aModuleCode) {
 
 	if (aModuleCode != null) {
 		chain[aModuleCode] = {
-			namespace: 'app',
-			moduleClassNamePart: Ok.strUpperCaseFirst(aModuleCode)
+			namespace: 'App.Modules.' + Ok.strUpperCaseFirst(aModuleCode)
 		};
 	}
 
@@ -136,7 +135,7 @@ Batten.Controller.getChain = function (aModuleCode) {
 Batten.Controller.fromCode = function (aCode) {
 	var controller, component;
 
-	component = app.Controller.getComponentResolver().resolveComponent(
+	component = this.getComponentResolver().resolveComponent(
 		this.getChain(aCode),
 		'Controller'
 	);
