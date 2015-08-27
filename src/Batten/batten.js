@@ -118,7 +118,7 @@ Batten.Controller.getChain = function (aModuleCode) {
 	var chain = Ok.cloneObject(this.getBaseChain());
 
 	if (aModuleCode != null) {
-		chain[aModuleCode] = {
+		chain['module'] = {
 			namespace: 'App.Modules.' + Ok.strUpperCaseFirst(aModuleCode)
 		};
 	}
