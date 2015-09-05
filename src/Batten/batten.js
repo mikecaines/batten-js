@@ -81,6 +81,21 @@ Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNa
 
 
 /**
+ * @constructor
+ * @abstract
+ */
+Batten.Environment = function () {
+	throw Error("ABSTRACT");
+};
+
+Batten.Environment.init = function (aOptions) {
+
+};
+
+
+
+
+/**
  * @param aCode
  * @class Batten.Controller
  */
