@@ -300,14 +300,8 @@ Batten.ControllerPlugins.prototype.register = function (aComponentCode, aInstall
 	}
 };
 
-Batten.ControllerPlugins.prototype.get = function (aInterface, aInstallationCode) {
+Batten.ControllerPlugins.prototype.get = function (aInstallationCode) {
 	if (this._bcp_items[aInstallationCode] && this._bcp_items[aInstallationCode].plugin) {
-		if (!(this._bcp_items[aInstallationCode].plugin instanceof aInterface)) {
-			throw new Error(
-				"Plugin installed at '" + aInstallationCode + "' is of unexpected type."
-			);
-		}
-
 		return this._bcp_items[aInstallationCode].plugin;
 	}
 
