@@ -96,12 +96,15 @@ Batten.Environment.init = function (aOptions) {
 
 
 /**
- * @param aCode
  * @class Batten.Controller
+ * @param {String} aCode
+ * @param {Object} aOptions
  */
-Batten.Controller = function (aCode) {
+Batten.Controller = function (aCode, aOptions) {
 	this._bc_model = null;
 	this._bc_code = aCode+'';
+	this._bc_plugins = null;
+	this._bc_eventTarget = new Batten.EventTarget();
 };
 
 /**
@@ -114,17 +117,19 @@ Batten.Controller._bc_baseChain = null;
  * Sets the base chain.
  * @param {object} aData
  * @static
+ * @protected
  */
 Batten.Controller.setBaseChain = function (aData) {
-	this._bc_baseChain = aData;
+	Batten.Controller._bc_baseChain = aData;
 };
 
 /**
  * @static
+ * @protected
  * @returns {object}
  */
 Batten.Controller.getBaseChain = function () {
-	return this._bc_baseChain;
+	return Batten.Controller._bc_baseChain;
 };
 
 /**
@@ -154,11 +159,12 @@ Batten.Controller.getChain = function (aModuleCode) {
 
 /**
  * Creates an instance of the appropriate module class.
- * @param aCode
+ * @param {String} aCode
+ * @param {Object=} aOptions
  * @returns {Batten.Controller|null}
  * @static
  */
-Batten.Controller.fromCode = function (aCode) {
+Batten.Controller.fromCode = function (aCode, aOptions) {
 	var controller, component;
 
 	component = this.getComponentResolver().resolveComponent(
@@ -172,9 +178,35 @@ Batten.Controller.fromCode = function (aCode) {
 		);
 	}
 
-	controller = new component.classObject(aCode);
+	controller = new component.classObject(aCode, aOptions);
 
 	return controller;
+};
+
+/**
+ * @protected
+ */
+Batten.Controller.prototype.resolvePlugins = function () {
+
+};
+
+/**
+ * @protected
+ */
+Batten.Controller.prototype.dispatchEvent = function (aEvent) {
+	this._bc_eventTarget.dispatchEvent(aEvent);
+};
+
+Batten.Controller.prototype.addEventListener = function (aEventType, aListener) {
+	this._bc_eventTarget.addEventListener(aEventType, aListener);
+};
+
+Batten.Controller.prototype.getPlugins = function () {
+	if (!this._bc_plugins) {
+		this._bc_plugins = new Batten.ControllerPlugins(this);
+	}
+
+	return this._bc_plugins;
 };
 
 Batten.Controller.prototype.getModel = function () {
@@ -190,7 +222,7 @@ Batten.Controller.prototype.hookup = function () {
 };
 
 Batten.Controller.prototype.init = function () {
-
+	this.resolvePlugins();
 };
 
 Batten.Controller.prototype.getCode = function () {
@@ -199,6 +231,87 @@ Batten.Controller.prototype.getCode = function () {
 
 Batten.Controller.prototype.go = function () {
 
+};
+
+
+
+
+/**
+ *
+ * @param {Batten.Controller} aController
+ * @param {string} aCode
+ * @constructor
+ */
+Batten.ControllerPlugin = function (aController, aCode) {
+	this._bcp_controller = aController;
+	this._bcp_code = aCode;
+	this._bcp_eventTarget = new Batten.EventTarget();
+};
+
+/**
+ * @protected
+ */
+Batten.ControllerPlugin.prototype.dispatchEvent = function (aEvent) {
+	this._bcp_eventTarget.dispatchEvent(aEvent);
+};
+
+Batten.ControllerPlugin.prototype.getController = function () {
+	return this._bcp_controller;
+};
+
+Batten.ControllerPlugin.prototype.addEventListener = function (aEventType, aListener) {
+	this._bcp_eventTarget.addEventListener(aEventType, aListener);
+};
+
+
+
+
+/**
+ *
+ * @param {Batten.Controller} aController
+ * @constructor
+ */
+Batten.ControllerPlugins = function (aController) {
+	this._bcp_controller = aController;
+	this._bcp_items = {};
+};
+
+Batten.ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode) {
+	var plugin, component;
+
+	if (!this._bcp_items[aInstallationCode]) {
+		plugin = null;
+
+		component = this._bcp_controller.constructor.getComponentResolver().resolveComponent(
+			this._bcp_controller.constructor.getChain(this._bcp_controller.getCode()),
+			'ControllerPlugin',
+			null,
+			aComponentCode
+		);
+
+		if (component) {
+			plugin = new component.classObject(this._bcp_controller, aComponentCode);
+		}
+
+		this._bcp_items[aInstallationCode] = {
+			plugin: plugin,
+			componentCode: aComponentCode
+		};
+	}
+};
+
+Batten.ControllerPlugins.prototype.get = function (aInterface, aInstallationCode) {
+	if (this._bcp_items[aInstallationCode] && this._bcp_items[aInstallationCode].plugin) {
+		if (!(this._bcp_items[aInstallationCode].plugin instanceof aInterface)) {
+			throw new Error(
+				"Plugin installed at '" + aInstallationCode + "' is of unexpected type."
+			);
+		}
+
+		return this._bcp_items[aInstallationCode].plugin;
+	}
+
+	return null;
 };
 
 
