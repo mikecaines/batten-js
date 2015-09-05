@@ -22,8 +22,8 @@ Batten.Model = Ok.extendObject(Ok.HashMap);
  */
 Batten.ComponentResolver = function () {};
 
-Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart) {
-	var component, link, namespace, className, k, chain;
+Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
+	var component, link, namespaceObject, namespacePath, className, k, chain;
 
 	chain = [];
 	for (k in aChain) {
@@ -33,16 +33,27 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 	component = null;
 
 	for (k = 0; k < chain.length; k++) {
-		link = chain[k];
+		//TODO: should be defaulted elsewhere
+		link = Ok.objectAssign({
+			namespace: null,
+			pluginsSubNamespace: '.Plugins'
+		}, chain[k]);
 
-		namespace = link.namespace != null ? Ok.objectGet(self, link.namespace) : self;
+		namespacePath = link.namespace != null ? link.namespace : '';
 
-		if (namespace) {
-			className = this.generateClassName(link, aClassNamePart);
+		if (aPluginCode) {
+			namespacePath += link.pluginsSubNamespace;
+			namespacePath += '.' + aPluginCode;
+		}
 
-			if (className in namespace) {
+		namespaceObject = namespacePath != '' ? Ok.objectGet(self, namespacePath) : self;
+
+		if (namespaceObject) {
+			className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
+
+			if (className in namespaceObject) {
 				component = {
-					classObject: namespace[className]
+					classObject: namespaceObject[className]
 				};
 
 				break;
@@ -56,7 +67,7 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 /**
  * @returns {string}
  */
-Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart) {
+Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart, aViewTypeCode, aPluginCode) {
 	var className;
 
 	className = '';
