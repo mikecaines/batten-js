@@ -194,7 +194,7 @@ Batten.Controller.prototype.resolvePlugins = function () {
  * @protected
  */
 Batten.Controller.prototype.dispatchEvent = function (aEvent) {
-	this._bc_eventTarget.dispatchEvent(aEvent);
+	this._bc_eventTarget.dispatchEvent(this, aEvent);
 };
 
 Batten.Controller.prototype.addEventListener = function (aEventType, aListener) {
@@ -252,7 +252,7 @@ Batten.ControllerPlugin = function (aController, aCode) {
  * @protected
  */
 Batten.ControllerPlugin.prototype.dispatchEvent = function (aEvent) {
-	this._bcp_eventTarget.dispatchEvent(aEvent);
+	this._bcp_eventTarget.dispatchEvent(this, aEvent);
 };
 
 Batten.ControllerPlugin.prototype.getController = function () {
@@ -330,12 +330,12 @@ Batten.EventTarget = Ok.extendObject(Object, {
 		this._bet_listeners[aEventType].push(aListener);
 	},
 
-	dispatchEvent: function (aEvent) {
+	dispatchEvent: function (aThisContext, aEvent) {
 		var i;
 
 		if (this._bet_listeners[aEvent.type]) {
 			for (i = 0; i < this._bet_listeners[aEvent.type].length; i++) {
-				this._bet_listeners[aEvent.type][i].call(aEvent.target || self, aEvent);
+				this._bet_listeners[aEvent.type][i].call(aThisContext, aEvent);
 			}
 		}
 	}
