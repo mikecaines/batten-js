@@ -16,6 +16,24 @@ Batten.Environment = function () {
 	throw Error("ABSTRACT");
 };
 
-Batten.Environment.init = function (aOptions) {
+/**
+ * @private
+ * @static
+ */
+Batten.Environment._be_baseChain = null;
 
+Batten.Environment.init = function (aOptions) {
+	var options = Ok.objectAssign({
+		baseChain: null
+	}, aOptions);
+
+	this._be_baseChain = options.baseChain;
+};
+
+/**
+ * @static
+ * @returns {object}
+ */
+Batten.Environment.getBaseChain = function () {
+	return this._be_baseChain;
 };

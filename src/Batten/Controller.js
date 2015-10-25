@@ -21,31 +21,6 @@ Batten.Controller = function (aCode, aOptions) {
 };
 
 /**
- * @private
- * @static
- */
-Batten.Controller._bc_baseChain = null;
-
-/**
- * Sets the base chain.
- * @param {object} aData
- * @static
- * @protected
- */
-Batten.Controller.setBaseChain = function (aData) {
-	Batten.Controller._bc_baseChain = aData;
-};
-
-/**
- * @static
- * @protected
- * @returns {object}
- */
-Batten.Controller.getBaseChain = function () {
-	return Batten.Controller._bc_baseChain;
-};
-
-/**
  * @static
  * @returns {Batten.ComponentResolver}
  */
@@ -59,7 +34,7 @@ Batten.Controller.getComponentResolver = function () {
  * @static
  */
 Batten.Controller.getChain = function (aModuleCode) {
-	var chain = Ok.cloneObject(this.getBaseChain());
+	var chain = Ok.cloneObject(App.Environment.getBaseChain());
 
 	if (aModuleCode != null) {
 		chain['module'] = {
