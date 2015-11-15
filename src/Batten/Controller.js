@@ -62,7 +62,7 @@ Batten.Controller.fromCode = function (aCode, aOptions) {
 
 	if (!component) {
 		throw new Error(
-			"Could not resolve Controller component for module '"  + aCode + "'."
+			"Could not resolve Controller component for module '" + aCode + "'."
 		);
 	}
 
