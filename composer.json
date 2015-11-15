@@ -1,3 +1,18 @@
 {
-  "name": "mikecaines/batten-js"
+	"name": "solarfield/batten-js",
+	
+	"support": {
+		"source": "https://github.com/solarfield/batten-js.git"
+	},
+
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/solarfield/ok-kit-js.git"
+		}
+	],
+
+	"require": {
+		"solarfield/ok-kit-js": "dev-master"
+	}
 }
