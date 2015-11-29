@@ -1,19 +1,19 @@
 "use strict";
 
 /**
- * @namespace Batten
+ * @namespace Solarfield.Batten
  */
-if (!self.Batten) self.Batten = {};
+Solarfield.Ok.defineNamespace('Solarfield.Batten');
 
 
 
 
 /**
- * @class Batten.ComponentResolver
+ * @class Solarfield.Batten.ComponentResolver
  */
-Batten.ComponentResolver = function () {};
+Solarfield.Batten.ComponentResolver = function () {};
 
-Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
+Solarfield.Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
 	var component, link, namespaceObject, namespacePath, className, k, chain;
 
 	chain = [];
@@ -25,7 +25,7 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 
 	for (k = 0; k < chain.length; k++) {
 		//TODO: should be defaulted elsewhere
-		link = Ok.objectAssign({
+		link = Solarfield.Ok.objectAssign({
 			namespace: null,
 			pluginsSubNamespace: '.Plugins'
 		}, chain[k]);
@@ -37,7 +37,7 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 			namespacePath += '.' + aPluginCode;
 		}
 
-		namespaceObject = namespacePath != '' ? Ok.objectGet(self, namespacePath) : self;
+		namespaceObject = namespacePath != '' ? Solarfield.Ok.objectGet(self, namespacePath) : self;
 
 		if (namespaceObject) {
 			className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
@@ -58,7 +58,7 @@ Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNa
 /**
  * @returns {string}
  */
-Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart, aViewTypeCode, aPluginCode) {
+Solarfield.Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart, aViewTypeCode, aPluginCode) {
 	var className;
 
 	className = '';

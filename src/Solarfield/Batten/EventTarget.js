@@ -1,17 +1,17 @@
 "use strict";
 
 /**
- * @namespace Batten
+ * @namespace Solarfield.Batten
  */
-if (!self.Batten) self.Batten = {};
+Solarfield.Ok.defineNamespace('Solarfield.Batten');
 
 
 
 
 /**
- * @class Batten.EventTarget
+ * @class Solarfield.Batten.EventTarget
  */
-Batten.EventTarget = Ok.extendObject(Object, {
+Solarfield.Batten.EventTarget = Solarfield.Ok.extendObject(Object, {
 	constructor : function () {
 		this._bet_listeners = {}
 	},

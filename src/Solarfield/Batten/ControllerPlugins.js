@@ -1,24 +1,24 @@
 "use strict";
 
 /**
- * @namespace Batten
+ * @namespace Solarfield.Batten
  */
-if (!self.Batten) self.Batten = {};
+Solarfield.Ok.defineNamespace('Solarfield.Batten');
 
 
 
 
 /**
  *
- * @param {Batten.Controller} aController
+ * @param {Solarfield.Batten.Controller} aController
  * @constructor
  */
-Batten.ControllerPlugins = function (aController) {
+Solarfield.Batten.ControllerPlugins = function (aController) {
 	this._bcp_controller = aController;
 	this._bcp_items = {};
 };
 
-Batten.ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode) {
+Solarfield.Batten.ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode) {
 	var plugin, component;
 
 	if (!this._bcp_items[aInstallationCode]) {
@@ -42,7 +42,7 @@ Batten.ControllerPlugins.prototype.register = function (aComponentCode, aInstall
 	}
 };
 
-Batten.ControllerPlugins.prototype.get = function (aInstallationCode) {
+Solarfield.Batten.ControllerPlugins.prototype.get = function (aInstallationCode) {
 	if (this._bcp_items[aInstallationCode] && this._bcp_items[aInstallationCode].plugin) {
 		return this._bcp_items[aInstallationCode].plugin;
 	}
