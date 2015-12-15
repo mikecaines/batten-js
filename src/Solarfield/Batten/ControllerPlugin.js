@@ -13,7 +13,7 @@
 	else {
 		factory(
 			Solarfield.Ok,
-		  Solarfield.EventTarget
+			Solarfield.EventTarget
 		);
 	}
 })

@@ -17,11 +17,11 @@
 	else {
 		factory(
 			Solarfield.Ok,
-		  Solarfield.Batten.ComponentResolver,
-		  Solarfield.Batten.ControllerPlugins,
-		  Solarfield.Batten.ControllerPlugin,
-		  Solarfield.Batten.EventTarget,
-		  Solarfield.Batten.Model
+			Solarfield.Batten.ComponentResolver,
+			Solarfield.Batten.ControllerPlugins,
+			Solarfield.Batten.ControllerPlugin,
+			Solarfield.Batten.EventTarget,
+			Solarfield.Batten.Model
 		);
 	}
 })
