@@ -1,51 +1,65 @@
-"use strict";
-
-/**
- * @namespace Solarfield.Batten
- */
-Solarfield.Ok.defineNamespace('Solarfield.Batten');
-
-
-
-
-/**
- *
- * @param {Solarfield.Batten.Controller} aController
- * @constructor
- */
-Solarfield.Batten.ControllerPlugins = function (aController) {
-	this._bcp_controller = aController;
-	this._bcp_items = {};
-};
-
-Solarfield.Batten.ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode) {
-	var plugin, component;
-
-	if (!this._bcp_items[aInstallationCode]) {
-		plugin = null;
-
-		component = this._bcp_controller.constructor.getComponentResolver().resolveComponent(
-			this._bcp_controller.constructor.getChain(this._bcp_controller.getCode()),
-			'ControllerPlugin',
-			null,
-			aComponentCode
+(function (factory) {
+	if (typeof define === "function" && define.amd) {
+		define(
+			'solarfield/lightship-js/src/Solarfield/Batten/ControllerPlugins',
+			[
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+			],
+			factory
 		);
+	}
 
-		if (component) {
-			plugin = new component.classObject(this._bcp_controller, aComponentCode);
+	else {
+		factory(
+			Solarfield.Ok
+		);
+	}
+})
+(function (Ok) {
+	"use strict";
+
+	/**
+	 *
+	 * @param {Solarfield.Batten.Controller} aController
+	 * @constructor
+	 */
+	var ControllerPlugins = function (aController) {
+		this._bcp_controller = aController;
+		this._bcp_items = {};
+	};
+
+	ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode) {
+		var plugin, component;
+
+		if (!this._bcp_items[aInstallationCode]) {
+			plugin = null;
+
+			component = this._bcp_controller.constructor.getComponentResolver().resolveComponent(
+				this._bcp_controller.constructor.getChain(this._bcp_controller.getCode()),
+				'ControllerPlugin',
+				null,
+				aComponentCode
+			);
+
+			if (component) {
+				plugin = new component.classObject(this._bcp_controller, aComponentCode);
+			}
+
+			this._bcp_items[aInstallationCode] = {
+				plugin: plugin,
+				componentCode: aComponentCode
+			};
+		}
+	};
+
+	ControllerPlugins.prototype.get = function (aInstallationCode) {
+		if (this._bcp_items[aInstallationCode] && this._bcp_items[aInstallationCode].plugin) {
+			return this._bcp_items[aInstallationCode].plugin;
 		}
 
-		this._bcp_items[aInstallationCode] = {
-			plugin: plugin,
-			componentCode: aComponentCode
-		};
-	}
-};
+		return null;
+	};
 
-Solarfield.Batten.ControllerPlugins.prototype.get = function (aInstallationCode) {
-	if (this._bcp_items[aInstallationCode] && this._bcp_items[aInstallationCode].plugin) {
-		return this._bcp_items[aInstallationCode].plugin;
-	}
-
-	return null;
-};
+	Ok.defineNamespace('Solarfield.Batten');
+	return Solarfield.Batten.ControllerPlugins = ControllerPlugins;
+});

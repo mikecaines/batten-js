@@ -1,69 +1,83 @@
-"use strict";
-
-/**
- * @namespace Solarfield.Batten
- */
-Solarfield.Ok.defineNamespace('Solarfield.Batten');
-
-
-
-
-/**
- * @class Solarfield.Batten.ComponentResolver
- */
-Solarfield.Batten.ComponentResolver = function () {};
-
-Solarfield.Batten.ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
-	var component, link, namespaceObject, namespacePath, className, k, chain;
-
-	chain = [];
-	for (k in aChain) {
-		chain.unshift(aChain[k]);
+(function (factory) {
+	if (typeof define === "function" && define.amd) {
+		define(
+			'solarfield/lightship-js/src/Solarfield/Batten/ComponentResolver',
+			[
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+			],
+			factory
+		);
 	}
 
-	component = null;
+	else {
+		factory(
+			Solarfield.Ok
+		);
+	}
+})
+(function (Ok) {
+	"use strict";
 
-	for (k = 0; k < chain.length; k++) {
-		//TODO: should be defaulted elsewhere
-		link = Solarfield.Ok.objectAssign({
-			namespace: null,
-			pluginsSubNamespace: '.Plugins'
-		}, chain[k]);
+	/**
+	 * @class Solarfield.Batten.ComponentResolver
+	 */
+	var ComponentResolver = function () {};
 
-		namespacePath = link.namespace != null ? link.namespace : '';
+	ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
+		var component, link, namespaceObject, namespacePath, className, k, chain;
 
-		if (aPluginCode) {
-			namespacePath += link.pluginsSubNamespace;
-			namespacePath += '.' + aPluginCode;
+		chain = [];
+		for (k in aChain) {
+			chain.unshift(aChain[k]);
 		}
 
-		namespaceObject = namespacePath != '' ? Solarfield.Ok.objectGet(self, namespacePath) : self;
+		component = null;
 
-		if (namespaceObject) {
-			className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
+		for (k = 0; k < chain.length; k++) {
+			//TODO: should be defaulted elsewhere
+			link = Ok.objectAssign({
+				namespace: null,
+				pluginsSubNamespace: '.Plugins'
+			}, chain[k]);
 
-			if (className in namespaceObject) {
-				component = {
-					classObject: namespaceObject[className]
-				};
+			namespacePath = link.namespace != null ? link.namespace : '';
 
-				break;
+			if (aPluginCode) {
+				namespacePath += link.pluginsSubNamespace;
+				namespacePath += '.' + aPluginCode;
+			}
+
+			namespaceObject = namespacePath != '' ? Ok.objectGet(self, namespacePath) : self;
+
+			if (namespaceObject) {
+				className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
+
+				if (className in namespaceObject) {
+					component = {
+						classObject: namespaceObject[className]
+					};
+
+					break;
+				}
 			}
 		}
-	}
 
-	return component;
-};
+		return component;
+	};
 
-/**
- * @returns {string}
- */
-Solarfield.Batten.ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart, aViewTypeCode, aPluginCode) {
-	var className;
+	/**
+	 * @returns {string}
+	 */
+	ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart, aViewTypeCode, aPluginCode) {
+		var className;
 
-	className = '';
+		className = '';
 
-	className += aClassNamePart;
+		className += aClassNamePart;
 
-	return className;
-};
+		return className;
+	};
+
+	Ok.defineNamespace('Solarfield.Batten');
+	return Solarfield.Batten.ComponentResolver = ComponentResolver;
+});
