@@ -25,7 +25,7 @@
 		);
 	}
 })
-(function (Ok, ComponentResolver, ControllerPlugins, ControllerPlugin, EventTarget, Model) {
+(function (Ok, ComponentResolver, ControllerPlugins, ControllerPlugin, EvtTarget, Model) {
 	"use strict";
 
 	/**
@@ -37,7 +37,20 @@
 		this._bc_model = null;
 		this._bc_code = aCode+'';
 		this._bc_plugins = null;
-		this._bc_eventTarget = new EventTarget();
+		this._bc_eventTarget = new EvtTarget();
+	};
+
+	Controller.boot = function (aInfo) {
+		return App.Controller.fromCode(aInfo.moduleCode, aInfo.controllerOptions).then(function (controller) {
+			controller.init();
+			return controller;
+		});
+	};
+
+	Controller.bail = function (aEx) {
+		if (self.console) {
+			console.error(aEx);
+		}
 	};
 
 	/**
@@ -88,7 +101,7 @@
 
 		controller = new component.classObject(aCode, aOptions);
 
-		return controller;
+		return Promise.resolve(controller);
 	};
 
 	/**
@@ -125,7 +138,39 @@
 		return this._bc_model;
 	};
 
+	Controller.prototype.connect = function () {
+		var controller = this;
+
+		return new Promise(function (resolve, reject) {
+			function handleDomReady() {
+				document.removeEventListener('DOMContentLoaded', handleDomReady);
+
+				try {
+					controller.hookup();
+					resolve();
+				}
+				catch (ex) {reject(ex)}
+			}
+
+			if (self.document && ['interactive', 'complete'].includes(document.readyState)) {
+				handleDomReady();
+			}
+
+			else {
+				document.addEventListener('DOMContentLoaded', handleDomReady);
+			}
+		});
+	};
+
 	Controller.prototype.hookup = function () {
+
+	};
+
+	Controller.prototype.run = function () {
+		this.doTask();
+	};
+
+	Controller.prototype.doTask = function () {
 
 	};
 
@@ -137,8 +182,10 @@
 		return this._bc_code;
 	};
 
-	Controller.prototype.go = function () {
-
+	Controller.prototype.handleException = function (aEx) {
+		if (self.console) {
+			console.error(aEx);
+		}
 	};
 
 	Ok.defineNamespace('Solarfield.Batten');
