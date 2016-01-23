@@ -82,7 +82,7 @@
 	 * Creates an instance of the appropriate module class.
 	 * @param {String} aCode
 	 * @param {Object=} aOptions
-	 * @returns {Solarfield.Batten.Controller|null}
+	 * @returns {Promise<Solarfield.Batten.Controller|null>}
 	 * @static
 	 */
 	Controller.fromCode = function (aCode, aOptions) {
