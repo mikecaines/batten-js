@@ -3,7 +3,8 @@
 		define(
 			'solarfield/lightship-js/src/Solarfield/Batten/Model',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/StructProxy'
 			],
 			factory
 		);
@@ -11,18 +12,19 @@
 
 	else {
 		factory(
-			Solarfield.Ok
+			Solarfield.Ok,
+			Solarfield.Ok.StructProxy
 		);
 	}
 })
-(function (Ok) {
+(function (Ok, StructProxy) {
 	"use strict";
 
 	/**
 	 * @class Solarfield.Batten.Model
-	 * @extends Solarfield.Ok.HashMap
+	 * @extends Solarfield.Ok.StructProxy
 	 */
-	var Model = Ok.extendObject(Ok.HashMap);
+	var Model = Ok.extendObject(StructProxy);
 
 	Ok.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.Model = Model;
