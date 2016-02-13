@@ -1,9 +1,10 @@
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
 		define(
-			'solarfield/lightship-js/src/Solarfield/Batten/Environment',
+			'solarfield/batten-js/src/Solarfield/Batten/Environment',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
+				'solarfield/batten-js/src/Solarfield/Batten/Options'
 			],
 			factory
 		);
@@ -11,11 +12,12 @@
 
 	else {
 		factory(
-			Solarfield.Ok
+			Solarfield.Ok,
+			Solarfield.Batten.Options
 		);
 	}
 })
-(function (Ok) {
+(function (Ok, Options) {
 	"use strict";
 
 	/**
@@ -34,10 +36,18 @@
 
 	Environment.init = function (aOptions) {
 		var options = Ok.objectAssign({
-			baseChain: null
+			baseChain: null,
+			vars: {}
 		}, aOptions);
 
+		var vars;
+
 		this._be_baseChain = options.baseChain;
+
+		vars = this.getVars();
+		Object.keys(options.vars).forEach(function (k) {
+			vars.set(k, options.vars[k]);
+		});
 	};
 
 	/**
@@ -46,6 +56,16 @@
 	 */
 	Environment.getBaseChain = function () {
 		return this._be_baseChain;
+	};
+
+	Environment.getVars = function () {
+		if (!this._be_vars) {
+			this._be_vars = new Options({
+				readOnly:true
+			});
+		}
+
+		return this._be_vars;
 	};
 
 	Ok.defineNamespace('Solarfield.Batten');
