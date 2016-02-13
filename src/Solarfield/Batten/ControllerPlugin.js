@@ -1,7 +1,7 @@
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
 		define(
-			'solarfield/lightship-js/src/Solarfield/Batten/ControllerPlugin',
+			'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugin',
 			[
 				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
 				'solarfield/batten-js/src/Solarfield/Batten/EventTarget'
