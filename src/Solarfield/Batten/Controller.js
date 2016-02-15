@@ -7,7 +7,7 @@
 				'solarfield/batten-js/src/Solarfield/Batten/ComponentResolver',
 				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugins',
 				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugin',
-				'solarfield/batten-js/src/Solarfield/Batten/EventTarget',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget',
 				'solarfield/batten-js/src/Solarfield/Batten/Model'
 			],
 			factory
@@ -20,7 +20,7 @@
 			Solarfield.Batten.ComponentResolver,
 			Solarfield.Batten.ControllerPlugins,
 			Solarfield.Batten.ControllerPlugin,
-			Solarfield.Batten.EventTarget,
+			Solarfield.Ok.EventTarget,
 			Solarfield.Batten.Model
 		);
 	}

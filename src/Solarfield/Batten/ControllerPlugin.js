@@ -4,7 +4,7 @@
 			'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugin',
 			[
 				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
-				'solarfield/batten-js/src/Solarfield/Batten/EventTarget'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget'
 			],
 			factory
 		);
@@ -13,7 +13,7 @@
 	else {
 		factory(
 			Solarfield.Ok,
-			Solarfield.EventTarget
+			Solarfield.Ok.EventTarget
 		);
 	}
 })
