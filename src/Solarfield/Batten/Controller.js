@@ -118,6 +118,14 @@
 		this._bc_eventTarget.dispatchEvent(this, aEvent);
 	};
 
+	/**
+	 * @returns {boolean} Whether there are any event listeners for the specified type.
+	 * @protected
+	 */
+	Controller.prototype.hasEventListeners = function (aEventType) {
+		return this._bc_eventTarget.hasEventListeners(aEventType);
+	};
+
 	Controller.prototype.addEventListener = function (aEventType, aListener) {
 		this._bc_eventTarget.addEventListener(aEventType, aListener);
 	};
