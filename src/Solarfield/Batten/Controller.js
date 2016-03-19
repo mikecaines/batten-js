@@ -49,7 +49,7 @@
 
 	Controller.bail = function (aEx) {
 		if (self.console) {
-			console.error(aEx);
+			console.error('Bailed.', aEx);
 		}
 	};
 
@@ -184,7 +184,7 @@
 
 	Controller.prototype.handleException = function (aEx) {
 		if (self.console) {
-			console.error(aEx);
+			console.error('Encountered exception.', aEx);
 		}
 	};
 
