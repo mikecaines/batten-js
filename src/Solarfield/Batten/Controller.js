@@ -41,7 +41,7 @@
 	};
 
 	Controller.boot = function (aInfo) {
-		return App.Controller.fromCode(aInfo.moduleCode, aInfo.controllerOptions).then(function (controller) {
+		return this.fromCode(aInfo.moduleCode, aInfo.controllerOptions).then(function (controller) {
 			controller.init();
 			return controller;
 		});
