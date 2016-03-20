@@ -41,10 +41,9 @@
 	};
 
 	Controller.boot = function (aInfo) {
-		return this.fromCode(aInfo.moduleCode, aInfo.controllerOptions).then(function (controller) {
-			controller.init();
-			return controller;
-		});
+		var controller = this.fromCode(aInfo.moduleCode, aInfo.controllerOptions);
+		controller.init();
+		return controller;
 	};
 
 	Controller.bail = function (aEx) {
@@ -82,11 +81,11 @@
 	 * Creates an instance of the appropriate module class.
 	 * @param {String} aCode
 	 * @param {Object=} aOptions
-	 * @returns {Promise<Solarfield.Batten.Controller|null>}
+	 * @returns {Solarfield.Batten.Controller}
 	 * @static
 	 */
 	Controller.fromCode = function (aCode, aOptions) {
-		var controller, component;
+		var component;
 
 		component = this.getComponentResolver().resolveComponent(
 			this.getChain(aCode),
@@ -99,9 +98,7 @@
 			);
 		}
 
-		controller = new component.classObject(aCode, aOptions);
-
-		return Promise.resolve(controller);
+		return new component.classObject(aCode, aOptions);
 	};
 
 	/**
