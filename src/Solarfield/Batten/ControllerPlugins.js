@@ -50,6 +50,8 @@
 				componentCode: aComponentCode
 			};
 		}
+
+		return this.get(aInstallationCode);
 	};
 
 	ControllerPlugins.prototype.get = function (aInstallationCode) {
