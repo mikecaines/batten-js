@@ -6,7 +6,6 @@
 				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
 				'solarfield/batten-js/src/Solarfield/Batten/ComponentResolver',
 				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugins',
-				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugin',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget',
 				'solarfield/batten-js/src/Solarfield/Batten/Model'
 			],
@@ -19,13 +18,12 @@
 			Solarfield.Ok,
 			Solarfield.Batten.ComponentResolver,
 			Solarfield.Batten.ControllerPlugins,
-			Solarfield.Batten.ControllerPlugin,
 			Solarfield.Ok.EventTarget,
 			Solarfield.Batten.Model
 		);
 	}
 })
-(function (Ok, ComponentResolver, ControllerPlugins, ControllerPlugin, EvtTarget, Model) {
+(function (Ok, ComponentResolver, ControllerPlugins, EvtTarget, Model) {
 	"use strict";
 
 	/**
