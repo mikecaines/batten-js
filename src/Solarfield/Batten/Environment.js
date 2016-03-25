@@ -4,7 +4,8 @@
 			'solarfield/batten-js/src/Solarfield/Batten/Environment',
 			[
 				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
-				'solarfield/batten-js/src/Solarfield/Batten/Options'
+				'solarfield/batten-js/src/Solarfield/Batten/Options',
+				'solarfield/batten-js/src/Solarfield/Batten/Logger'
 			],
 			factory
 		);
@@ -13,11 +14,12 @@
 	else {
 		factory(
 			Solarfield.Ok,
-			Solarfield.Batten.Options
+			Solarfield.Batten.Options,
+			Solarfield.Batten.Logger
 		);
 	}
 })
-(function (Ok, Options) {
+(function (Ok, Options, Logger) {
 	"use strict";
 
 	/**
@@ -66,6 +68,14 @@
 		}
 
 		return this._be_vars;
+	};
+
+	Environment.getLogger = function () {
+		if (!this._be_logger) {
+			this._be_logger = new Logger();
+		}
+
+		return this._be_logger;
 	};
 
 	Ok.defineNamespace('Solarfield.Batten');

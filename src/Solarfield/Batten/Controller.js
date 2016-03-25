@@ -3,6 +3,7 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/Controller',
 			[
+				'app/App/Environment',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
 				'solarfield/batten-js/src/Solarfield/Batten/ComponentResolver',
 				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugins',
@@ -15,6 +16,7 @@
 
 	else {
 		factory(
+			App.Environment,
 			Solarfield.Ok,
 			Solarfield.Batten.ComponentResolver,
 			Solarfield.Batten.ControllerPlugins,
@@ -23,7 +25,7 @@
 		);
 	}
 })
-(function (Ok, ComponentResolver, ControllerPlugins, EvtTarget, Model) {
+(function (Environment, Ok, ComponentResolver, ControllerPlugins, EvtTarget, Model) {
 	"use strict";
 
 	/**
@@ -45,9 +47,7 @@
 	};
 
 	Controller.bail = function (aEx) {
-		if (self.console) {
-			console.error('Bailed.', aEx);
-		}
+		Environment.getLogger().error('Bailed.', aEx);
 	};
 
 	/**
@@ -186,9 +186,7 @@
 	};
 
 	Controller.prototype.handleException = function (aEx) {
-		if (self.console) {
-			console.error('Encountered exception.', aEx);
-		}
+		Environment.getLogger().error('Encountered exception.', aEx);
 	};
 
 	Ok.defineNamespace('Solarfield.Batten');
