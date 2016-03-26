@@ -28,7 +28,7 @@
 		this._bcp_items = {};
 	};
 
-	ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode) {
+	ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode, aOptions) {
 		var plugin, component;
 
 		if (!this._bcp_items[aInstallationCode]) {
