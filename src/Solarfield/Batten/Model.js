@@ -3,7 +3,7 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/Model',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/StructProxy'
 			],
 			factory
@@ -12,20 +12,20 @@
 
 	else {
 		factory(
-			Solarfield.Ok,
+			Solarfield.Ok.ObjectUtils,
 			Solarfield.Ok.StructProxy
 		);
 	}
 })
-(function (Ok, StructProxy) {
+(function (ObjectUtils, StructProxy) {
 	"use strict";
 
 	/**
 	 * @class Solarfield.Batten.Model
 	 * @extends Solarfield.Ok.StructProxy
 	 */
-	var Model = Ok.extendObject(StructProxy);
+	var Model = ObjectUtils.extend(StructProxy);
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.Model = Model;
 });

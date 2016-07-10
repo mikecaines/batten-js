@@ -3,7 +3,8 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/Options',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/StructUtils'
 			],
 			factory
 		);
@@ -11,17 +12,18 @@
 
 	else {
 		factory(
-			Solarfield.Ok
+			Solarfield.Ok.ObjectUtils,
+			Solarfield.Ok.StructUtils
 		);
 	}
 })
-(function (Ok) {
+(function (ObjectUtils, StructUtils) {
 	"use strict";
 
 	/**
 	 * @class Solarfield.Batten.Options
 	 */
-	var Options = Ok.extendObject(null, {
+	var Options = ObjectUtils.extend(null, {
 		add: function (aCode, aValue) {
 			if (!this.has(aCode)) {
 				this.set(aCode, aValue);
@@ -60,7 +62,7 @@
 		},
 
 		constructor: function (aOptions) {
-			var options = Ok.objectAssign({
+			var options = StructUtils.assign({
 				readOnly: false
 			}, aOptions);
 
@@ -69,6 +71,6 @@
 		}
 	});
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.Options = Options;
 });

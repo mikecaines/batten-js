@@ -3,7 +3,7 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugins',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils'
 			],
 			factory
 		);
@@ -15,7 +15,7 @@
 		);
 	}
 })
-(function (Ok) {
+(function (ObjectUtils) {
 	"use strict";
 
 	/**
@@ -62,6 +62,6 @@
 		return null;
 	};
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.ControllerPlugins = ControllerPlugins;
 });

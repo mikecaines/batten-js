@@ -3,7 +3,7 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/Logger',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils'
 			],
 			factory
 		);
@@ -15,7 +15,7 @@
 		);
 	}
 })
-(function (Ok) {
+(function (ObjectUtils) {
 	"use strict";
 
 	/**
@@ -33,6 +33,6 @@
 		Logger.prototype.info = Logger.prototype.warn = Logger.prototype.error = Logger.prototype.debug = function(){};
 	}
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.Logger = Logger;
 });

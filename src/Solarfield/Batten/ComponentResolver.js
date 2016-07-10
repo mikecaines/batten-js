@@ -3,7 +3,8 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/ComponentResolver',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok'
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/StructUtils'
 			],
 			factory
 		);
@@ -11,11 +12,12 @@
 
 	else {
 		factory(
-			Solarfield.Ok
+			Solarfield.Ok.ObjectUtils,
+			Solarfield.Ok.StructUtils
 		);
 	}
 })
-(function (Ok) {
+(function (ObjectUtils, StructUtils) {
 	"use strict";
 
 	/**
@@ -35,7 +37,7 @@
 
 		for (k = 0; k < chain.length; k++) {
 			//TODO: should be defaulted elsewhere
-			link = Ok.objectAssign({
+			link = StructUtils.assign({
 				namespace: null,
 				pluginsSubNamespace: '.Plugins'
 			}, chain[k]);
@@ -47,7 +49,7 @@
 				namespacePath += '.' + aPluginCode;
 			}
 
-			namespaceObject = namespacePath != '' ? Ok.objectGet(self, namespacePath) : self;
+			namespaceObject = namespacePath != '' ? StructUtils.get(self, namespacePath) : self;
 
 			if (namespaceObject) {
 				className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
@@ -78,6 +80,6 @@
 		return className;
 	};
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.ComponentResolver = ComponentResolver;
 });

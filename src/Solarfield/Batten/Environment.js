@@ -3,7 +3,8 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/Environment',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/StructUtils',
 				'solarfield/batten-js/src/Solarfield/Batten/Options',
 				'solarfield/batten-js/src/Solarfield/Batten/Logger'
 			],
@@ -13,13 +14,14 @@
 
 	else {
 		factory(
-			Solarfield.Ok,
+			Solarfield.Ok.ObjectUtils,
+			Solarfield.Ok.StructUtils,
 			Solarfield.Batten.Options,
 			Solarfield.Batten.Logger
 		);
 	}
 })
-(function (Ok, Options, Logger) {
+(function (ObjectUtils, StructUtils, Options, Logger) {
 	"use strict";
 
 	/**
@@ -37,7 +39,7 @@
 	Environment._be_baseChain = null;
 
 	Environment.init = function (aOptions) {
-		var options = Ok.objectAssign({
+		var options = StructUtils.assign({
 			baseChain: null,
 			vars: {}
 		}, aOptions);
@@ -78,6 +80,6 @@
 		return this._be_logger;
 	};
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.Environment = Environment;
 });

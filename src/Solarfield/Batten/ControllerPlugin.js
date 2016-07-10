@@ -3,7 +3,7 @@
 		define(
 			'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugin',
 			[
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget'
 			],
 			factory
@@ -12,12 +12,12 @@
 
 	else {
 		factory(
-			Solarfield.Ok,
+			Solarfield.Ok.ObjectUtils,
 			Solarfield.Ok.EventTarget
 		);
 	}
 })
-(function (Ok, EventTarget) {
+(function (ObjectUtils, EventTarget) {
 	"use strict";
 
 	/**
@@ -47,6 +47,6 @@
 		this._bcp_eventTarget.addEventListener(aEventType, aListener);
 	};
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.ControllerPlugin = ControllerPlugin;
 });

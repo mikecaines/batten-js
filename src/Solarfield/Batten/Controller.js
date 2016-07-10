@@ -4,7 +4,8 @@
 			'solarfield/batten-js/src/Solarfield/Batten/Controller',
 			[
 				'app/App/Environment',
-				'solarfield/ok-kit-js/src/Solarfield/Ok/ok',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
+				'solarfield/ok-kit-js/src/Solarfield/Ok/StringUtils',
 				'solarfield/batten-js/src/Solarfield/Batten/ComponentResolver',
 				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugins',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget',
@@ -17,7 +18,8 @@
 	else {
 		factory(
 			App.Environment,
-			Solarfield.Ok,
+			Solarfield.Ok.ObjectUtils,
+			Solarfield.Ok.StringUtils,
 			Solarfield.Batten.ComponentResolver,
 			Solarfield.Batten.ControllerPlugins,
 			Solarfield.Ok.EventTarget,
@@ -25,7 +27,7 @@
 		);
 	}
 })
-(function (Environment, Ok, ComponentResolver, ControllerPlugins, EvtTarget, Model) {
+(function (Environment, ObjectUtils, StringUtils, ComponentResolver, ControllerPlugins, EvtTarget, Model) {
 	"use strict";
 
 	/**
@@ -64,11 +66,11 @@
 	 * @static
 	 */
 	Controller.getChain = function (aModuleCode) {
-		var chain = Ok.cloneObject(App.Environment.getBaseChain());
+		var chain = ObjectUtils.clone(App.Environment.getBaseChain());
 
 		if (aModuleCode != null) {
 			chain['module'] = {
-				namespace: 'App.Modules.' + Ok.strUpperCaseFirst(aModuleCode)
+				namespace: 'App.Modules.' + StringUtils.upperCaseFirst(aModuleCode)
 			};
 		}
 
@@ -189,6 +191,6 @@
 		Environment.getLogger().error('Encountered exception.', aEx);
 	};
 
-	Ok.defineNamespace('Solarfield.Batten');
+	ObjectUtils.defineNamespace('Solarfield.Batten');
 	return Solarfield.Batten.Controller = Controller;
 });
