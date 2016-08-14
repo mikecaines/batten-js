@@ -21,7 +21,7 @@
 	"use strict";
 
 	/**
-	 *
+	 * @class Solarfield.Batten.ControllerPlugin
 	 * @param {Solarfield.Batten.Controller} aController
 	 * @param {string} aCode
 	 * @constructor
@@ -39,6 +39,9 @@
 		this._bcp_eventTarget.dispatchEvent(this, aEvent);
 	};
 
+	/**
+	 * @returns {Solarfield.Batten.Controller}
+	 */
 	ControllerPlugin.prototype.getController = function () {
 		return this._bcp_controller;
 	};
