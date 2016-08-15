@@ -116,6 +116,14 @@
 	};
 
 	/**
+	 * @protected
+	 * @param {Solarfield.Ok.ExtendableEventManager} aExtendable
+	 */
+	Controller.prototype.dispatchExtendableEvent = function (aExtendable) {
+		return this._bc_eventTarget.dispatchExtendableEvent(this, aExtendable);
+	};
+
+	/**
 	 * @returns {boolean} Whether there are any event listeners for the specified type.
 	 * @protected
 	 */
@@ -150,11 +158,9 @@
 			function handleDomReady() {
 				document.removeEventListener('DOMContentLoaded', handleDomReady);
 
-				try {
-					controller.hookup();
-					resolve();
-				}
-				catch (ex) {reject(ex)}
+				Promise.resolve(controller.hookup())
+				.then(()=> resolve())
+				.catch(ex => reject(ex));
 			}
 
 			if (self.document && ['interactive', 'complete'].includes(document.readyState)) {
@@ -168,7 +174,7 @@
 	};
 
 	Controller.prototype.hookup = function () {
-
+		return Promise.resolve();
 	};
 
 	Controller.prototype.run = function () {
