@@ -28,38 +28,57 @@
 		this._bcp_items = {};
 	};
 
-	ControllerPlugins.prototype.register = function (aComponentCode, aInstallationCode, aOptions) {
+	ControllerPlugins.prototype.register = function (aComponentCode, aOptions) {
 		var plugin, component;
 
-		if (!this._bcp_items[aInstallationCode]) {
-			plugin = null;
+		if (this._bcp_items[aComponentCode]) throw new Error(
+			"Plugin '" + aComponentCode + "' is already registered."
+		);
 
-			component = this._bcp_controller.constructor.getComponentResolver().resolveComponent(
-				this._bcp_controller.constructor.getChain(this._bcp_controller.getCode()),
-				'ControllerPlugin',
-				null,
-				aComponentCode
-			);
+		plugin = null;
 
-			if (component) {
-				plugin = new component.classObject(this._bcp_controller, aComponentCode);
-			}
+		component = this._bcp_controller.constructor.getComponentResolver().resolveComponent(
+			this._bcp_controller.constructor.getChain(this._bcp_controller.getCode()),
+			'ControllerPlugin',
+			null,
+			aComponentCode
+		);
 
-			this._bcp_items[aInstallationCode] = {
-				plugin: plugin,
-				componentCode: aComponentCode
-			};
+		if (component) {
+			plugin = new component.classObject(this._bcp_controller, aComponentCode);
 		}
 
-		return this.get(aInstallationCode);
+		this._bcp_items[aComponentCode] = {
+			plugin: plugin,
+			componentCode: aComponentCode
+		};
+
+		return this.get(aComponentCode);
 	};
 
-	ControllerPlugins.prototype.get = function (aInstallationCode) {
-		if (this._bcp_items[aInstallationCode] && this._bcp_items[aInstallationCode].plugin) {
-			return this._bcp_items[aInstallationCode].plugin;
+	ControllerPlugins.prototype.get = function (aComponentCode) {
+		if (this._bcp_items[aComponentCode] && this._bcp_items[aComponentCode].plugin) {
+			return this._bcp_items[aComponentCode].plugin;
 		}
 
 		return null;
+	};
+
+	ControllerPlugins.prototype.getByClass = function (aClass) {
+		var plugin = null;
+		var k;
+
+		for (k in this._bcp_items) {
+			if (this._bcp_items[k].plugin && this._bcp_items[k].plugin instanceof aClass) {
+				if (plugin) throw new Error(
+						"Could not retrieve plugin because multiple instances of " + aClass + " are registered."
+				);
+
+				plugin = this._bcp_items[k].plugin;
+			}
+		}
+
+		return plugin;
 	};
 
 	ObjectUtils.defineNamespace('Solarfield.Batten');
