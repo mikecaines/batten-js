@@ -159,8 +159,8 @@
 				document.removeEventListener('DOMContentLoaded', handleDomReady);
 
 				Promise.resolve(controller.hookup())
-				.then(()=> resolve())
-				.catch(ex => reject(ex));
+				.then(function () {resolve()})
+				.catch(function (ex) {reject(ex)});
 			}
 
 			if (self.document && ['interactive', 'complete'].includes(document.readyState)) {
