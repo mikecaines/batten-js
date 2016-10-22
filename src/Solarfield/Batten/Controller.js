@@ -194,7 +194,9 @@
 	};
 
 	Controller.prototype.handleException = function (aEx) {
-		Environment.getLogger().error('Encountered exception.', aEx);
+		Environment.getLogger().error(''+aEx, {
+			exception: aEx
+		});
 	};
 
 	ObjectUtils.defineNamespace('Solarfield.Batten');
