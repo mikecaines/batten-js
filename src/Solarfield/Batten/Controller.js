@@ -70,7 +70,7 @@
 
 		if (aModuleCode != null) {
 			chain['module'] = {
-				namespace: 'App.Modules.' + StringUtils.upperCaseFirst(aModuleCode)
+				namespace: 'App.Modules.' + aModuleCode
 			};
 		}
 
