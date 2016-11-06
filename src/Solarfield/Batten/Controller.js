@@ -49,7 +49,9 @@
 	};
 
 	Controller.bail = function (aEx) {
-		Environment.getLogger().error('Bailed.', aEx);
+		Environment.getLogger().error('Bailed.', {
+			exception: aEx
+		});
 	};
 
 	/**
