@@ -34,9 +34,10 @@
 
 	/**
 	 * @protected
+	 * @see Solarfield.Ok.EventTarget::dispatchEvent()
 	 */
-	ControllerPlugin.prototype.dispatchEvent = function (aEvent) {
-		this._bcp_eventTarget.dispatchEvent(this, aEvent);
+	ControllerPlugin.prototype.dispatchEvent = function (aEvent, aOptions) {
+		this._bcp_eventTarget.dispatchEvent(this, aEvent, aOptions);
 	};
 
 	/**

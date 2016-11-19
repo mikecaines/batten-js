@@ -111,18 +111,23 @@
 	};
 
 	/**
+	 * @param {Event} aEvent
+	 * @param {Object=} aOptions
 	 * @protected
+	 * @see Solarfield.Ok.EventTarget::dispatchEvent()
 	 */
-	Controller.prototype.dispatchEvent = function (aEvent) {
-		this._bc_eventTarget.dispatchEvent(this, aEvent);
+	Controller.prototype.dispatchEvent = function (aEvent, aOptions) {
+		this._bc_eventTarget.dispatchEvent(this, aEvent, aOptions);
 	};
 
 	/**
 	 * @protected
 	 * @param {Solarfield.Ok.ExtendableEventManager} aExtendable
+	 * @param {Object=} aOptions Call time options.
+	 * @see Solarfield.Ok.EventTarget::dispatchExtendableEvent()
 	 */
-	Controller.prototype.dispatchExtendableEvent = function (aExtendable) {
-		return this._bc_eventTarget.dispatchExtendableEvent(this, aExtendable);
+	Controller.prototype.dispatchExtendableEvent = function (aExtendable, aOptions) {
+		return this._bc_eventTarget.dispatchExtendableEvent(this, aExtendable, aOptions);
 	};
 
 	Controller.prototype.addEventListener = function (aEventType, aListener) {
