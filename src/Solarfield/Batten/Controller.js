@@ -111,7 +111,7 @@
 	};
 
 	/**
-	 * @param {Event} aEvent
+	 * @param {Object} aEvent
 	 * @param {Object=} aOptions
 	 * @protected
 	 * @see Solarfield.Ok.EventTarget::dispatchEvent()
