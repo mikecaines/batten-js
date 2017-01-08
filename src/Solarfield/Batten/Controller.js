@@ -35,7 +35,7 @@
 	 * @param {String} aCode
 	 * @param {Object} aOptions
 	 */
-	var Controller = function (aCode, aOptions) {
+	const Controller = function (aCode, aOptions) {
 		this._bc_model = null;
 		this._bc_code = aCode+'';
 		this._bc_plugins = null;
@@ -43,7 +43,7 @@
 	};
 
 	Controller.boot = function (aInfo) {
-		var controller = this.fromCode(aInfo.moduleCode, aInfo.controllerOptions);
+		const controller = this.fromCode(aInfo.moduleCode, aInfo.controllerOptions);
 		controller.init();
 		return controller;
 	};
@@ -68,7 +68,7 @@
 	 * @static
 	 */
 	Controller.getChain = function (aModuleCode) {
-		var chain = ObjectUtils.clone(App.Environment.getBaseChain());
+		const chain = ObjectUtils.clone(App.Environment.getBaseChain());
 
 		if (aModuleCode != null) {
 			chain['module'] = {
@@ -87,9 +87,7 @@
 	 * @static
 	 */
 	Controller.fromCode = function (aCode, aOptions) {
-		var component;
-
-		component = this.getComponentResolver().resolveComponent(
+		const component = this.getComponentResolver().resolveComponent(
 			this.getChain(aCode),
 			'Controller'
 		);
@@ -151,7 +149,7 @@
 	};
 
 	Controller.prototype.connect = function () {
-		var controller = this;
+		const controller = this;
 
 		return new Promise(function (resolve, reject) {
 			function handleDomReady() {
@@ -199,5 +197,5 @@
 	};
 
 	ObjectUtils.defineNamespace('Solarfield.Batten');
-	return Solarfield.Batten.Controller = Controller;
+	return Solarfield.Batten['Controller'] = Controller;
 });
