@@ -26,19 +26,15 @@
 	const ComponentResolver = function () {};
 
 	ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
-		let chain = [];
-		for (let k in aChain) {
-			chain.unshift(aChain[k]);
-		}
-
+		const chain = aChain.slice().reverse();
 		let component = null;
-
-		for (let k = 0; k < chain.length; k++) {
+		
+		for (let i = 0; i < chain.length; i++) {
 			//TODO: should be defaulted elsewhere
 			const link = StructUtils.assign({
 				namespace: null,
 				pluginsSubNamespace: '.Plugins'
-			}, chain[k]);
+			}, chain[i]);
 
 			let namespacePath = link.namespace != null ? link.namespace : '';
 

@@ -68,12 +68,13 @@
 	 * @static
 	 */
 	Controller.getChain = function (aModuleCode) {
-		const chain = ObjectUtils.clone(App.Environment.getBaseChain());
+		const chain = App.Environment.getBaseChain().slice();
 
 		if (aModuleCode != null) {
-			chain['module'] = {
+			chain.push({
+				id: 'module',
 				namespace: 'App.Modules.' + aModuleCode
-			};
+			});
 		}
 
 		return chain;
