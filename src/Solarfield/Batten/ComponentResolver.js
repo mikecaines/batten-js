@@ -23,36 +23,34 @@
 	/**
 	 * @class Solarfield.Batten.ComponentResolver
 	 */
-	var ComponentResolver = function () {};
+	const ComponentResolver = function () {};
 
 	ComponentResolver.prototype.resolveComponent = function (aChain, aClassNamePart, aViewTypeCode, aPluginCode) {
-		var component, link, namespaceObject, namespacePath, className, k, chain;
-
-		chain = [];
-		for (k in aChain) {
+		let chain = [];
+		for (let k in aChain) {
 			chain.unshift(aChain[k]);
 		}
 
-		component = null;
+		let component = null;
 
-		for (k = 0; k < chain.length; k++) {
+		for (let k = 0; k < chain.length; k++) {
 			//TODO: should be defaulted elsewhere
-			link = StructUtils.assign({
+			const link = StructUtils.assign({
 				namespace: null,
 				pluginsSubNamespace: '.Plugins'
 			}, chain[k]);
 
-			namespacePath = link.namespace != null ? link.namespace : '';
+			let namespacePath = link.namespace != null ? link.namespace : '';
 
 			if (aPluginCode) {
 				namespacePath += link.pluginsSubNamespace;
 				namespacePath += '.' + aPluginCode;
 			}
 
-			namespaceObject = namespacePath != '' ? StructUtils.get(self, namespacePath) : self;
+			const namespaceObject = namespacePath != '' ? StructUtils.get(self, namespacePath) : self;
 
 			if (namespaceObject) {
-				className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
+				const className = this.generateClassName(link, aClassNamePart, aViewTypeCode, aPluginCode);
 
 				if (className in namespaceObject) {
 					component = {
@@ -71,9 +69,7 @@
 	 * @returns {string}
 	 */
 	ComponentResolver.prototype.generateClassName = function (aLink, aClassNamePart, aViewTypeCode, aPluginCode) {
-		var className;
-
-		className = '';
+		let className = '';
 
 		className += aClassNamePart;
 
@@ -81,5 +77,5 @@
 	};
 
 	ObjectUtils.defineNamespace('Solarfield.Batten');
-	return Solarfield.Batten.ComponentResolver = ComponentResolver;
+	return Solarfield.Batten['ComponentResolver'] = ComponentResolver;
 });
