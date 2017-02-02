@@ -6,6 +6,6 @@
 	},
 
 	"require": {
-		"solarfield/ok-kit-js": "^0.0"
+		"solarfield/ok-kit-js": "^0.1"
 	}
 }
