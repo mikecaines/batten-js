@@ -36,15 +36,24 @@
 	 * @private
 	 * @static
 	 */
-	Environment._be_baseChain = null;
+	Environment._be_baseChain = [];
 
 	Environment.init = function (aOptions) {
 		const options = StructUtils.assign({
-			baseChain: null,
 			vars: {}
 		}, aOptions);
 
-		this._be_baseChain = options.baseChain;
+		//prepend batten-js (it should always be low-level, even if init() is called late)
+		Environment._be_baseChain.unshift({
+			id: 'solarfield/batten-js',
+			namespace: 'Solarfield.Batten',
+		});
+		
+		//append app
+		Environment._be_baseChain.push({
+			id: 'app',
+			namespace: 'App',
+		});
 
 		let vars = this.getVars();
 		Object.keys(options.vars).forEach(function (k) {
@@ -57,25 +66,25 @@
 	 * @returns {object}
 	 */
 	Environment.getBaseChain = function () {
-		return this._be_baseChain;
+		return Environment._be_baseChain.slice();
 	};
 
 	Environment.getVars = function () {
-		if (!this._be_vars) {
-			this._be_vars = new Options({
+		if (!Environment._be_vars) {
+			Environment._be_vars = new Options({
 				readOnly:true
 			});
 		}
 
-		return this._be_vars;
+		return Environment._be_vars;
 	};
 
 	Environment.getLogger = function () {
-		if (!this._be_logger) {
-			this._be_logger = new Logger();
+		if (!Environment._be_logger) {
+			Environment._be_logger = new Logger();
 		}
 
-		return this._be_logger;
+		return Environment._be_logger;
 	};
 
 	ObjectUtils.defineNamespace('Solarfield.Batten');
