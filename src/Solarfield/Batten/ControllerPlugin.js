@@ -1,7 +1,6 @@
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
 		define(
-			'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugin',
 			[
 				'solarfield/ok-kit-js/src/Solarfield/Ok/ObjectUtils',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget'
