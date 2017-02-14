@@ -39,8 +39,13 @@
 
 	Environment.init = function (aOptions) {
 		const options = StructUtils.assign({
+			debug: false,
 			vars: {}
 		}, aOptions);
+		
+		if (!self.App) self.App = {};
+		
+		self.App.DEBUG = options.debug == true;
 
 		//prepend batten-js (it should always be low-level, even if init() is called late)
 		Environment._be_baseChain.unshift({
