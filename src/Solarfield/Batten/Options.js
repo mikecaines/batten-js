@@ -39,7 +39,10 @@
 			}
 
 			type = typeof aValue;
-			if (!(aValue === 'null' || aValue === undefined || type == 'string' || type == 'number')) {
+			if (!(
+				aValue === null || aValue === undefined
+				|| type == 'string' || type == 'number' || type == 'boolean'
+			)) {
 				throw new Error(
 					"Option values must be scalar or null."
 				);
