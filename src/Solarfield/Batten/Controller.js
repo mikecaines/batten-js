@@ -8,7 +8,8 @@
 				'solarfield/batten-js/src/Solarfield/Batten/ComponentResolver',
 				'solarfield/batten-js/src/Solarfield/Batten/ControllerPlugins',
 				'solarfield/ok-kit-js/src/Solarfield/Ok/EventTarget',
-				'solarfield/batten-js/src/Solarfield/Batten/Model'
+				'solarfield/batten-js/src/Solarfield/Batten/Model',
+				'solarfield/batten-js/src/Solarfield/Batten/Options'
 			],
 			factory
 		);
@@ -22,11 +23,14 @@
 			Solarfield.Batten.ComponentResolver,
 			Solarfield.Batten.ControllerPlugins,
 			Solarfield.Ok.EventTarget,
-			Solarfield.Batten.Model
+			Solarfield.Batten.Model,
+			Solarfield.Batten.Options
 		);
 	}
 })
-(function (Environment, ObjectUtils, StringUtils, ComponentResolver, ControllerPlugins, EvtTarget, Model) {
+(function (
+	Environment, ObjectUtils, StringUtils, ComponentResolver, ControllerPlugins, EvtTarget, Model, Options
+) {
 	"use strict";
 
 	/**
@@ -39,6 +43,7 @@
 		this._bc_code = aCode+'';
 		this._bc_plugins = null;
 		this._bc_eventTarget = new EvtTarget();
+		this._bc_options = null;
 	};
 
 	Controller.boot = function (aInfo) {
@@ -107,6 +112,13 @@
 	Controller.prototype.resolvePlugins = function () {
 
 	};
+	
+	/**
+	 * @protected
+	 */
+	Controller.prototype.resolveOptions = function () {
+	
+	};
 
 	/**
 	 * @param {Object} aEvent
@@ -138,6 +150,14 @@
 		}
 
 		return this._bc_plugins;
+	};
+	
+	Controller.prototype.getOptions = function () {
+		if (!this._bc_options) {
+			this._bc_options = new Options();
+		}
+		
+		return this._bc_options;
 	};
 
 	Controller.prototype.getModel = function () {
@@ -184,6 +204,7 @@
 
 	Controller.prototype.init = function () {
 		this.resolvePlugins();
+		this.resolveOptions();
 	};
 
 	Controller.prototype.getCode = function () {
