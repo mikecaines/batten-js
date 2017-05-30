@@ -27,7 +27,7 @@
 	 * @constructor
 	 * @abstract
 	 */
-	const Environment = function () {
+	var Environment = function () {
 		throw Error("ABSTRACT");
 	};
 
@@ -38,7 +38,7 @@
 	Environment._be_baseChain = [];
 
 	Environment.init = function (aOptions) {
-		const options = StructUtils.assign({
+		var options = StructUtils.assign({
 			debug: false,
 			vars: {}
 		}, aOptions);
@@ -59,7 +59,7 @@
 			namespace: 'App',
 		});
 
-		let vars = this.getVars();
+		var vars = this.getVars();
 		Object.keys(options.vars).forEach(function (k) {
 			vars.set(k, options.vars[k]);
 		});

@@ -38,7 +38,7 @@
 	 * @param {String} aCode
 	 * @param {Object} aOptions
 	 */
-	const Controller = function (aCode, aOptions) {
+	var Controller = function (aCode, aOptions) {
 		this._bc_model = null;
 		this._bc_code = aCode+'';
 		this._bc_plugins = null;
@@ -47,7 +47,7 @@
 	};
 
 	Controller.boot = function (aInfo) {
-		const controller = this.fromCode(aInfo.moduleCode, aInfo.controllerOptions);
+		var controller = this.fromCode(aInfo.moduleCode, aInfo.controllerOptions);
 		controller.init();
 		return controller;
 	};
@@ -72,7 +72,7 @@
 	 * @static
 	 */
 	Controller.getChain = function (aModuleCode) {
-		const chain = App.Environment.getBaseChain().slice();
+		var chain = App.Environment.getBaseChain().slice();
 
 		if (aModuleCode != null) {
 			chain.push({
@@ -92,7 +92,7 @@
 	 * @static
 	 */
 	Controller.fromCode = function (aCode, aOptions) {
-		const component = this.getComponentResolver().resolveComponent(
+		var component = this.getComponentResolver().resolveComponent(
 			this.getChain(aCode),
 			'Controller'
 		);
@@ -169,7 +169,7 @@
 	};
 
 	Controller.prototype.connect = function () {
-		const controller = this;
+		var controller = this;
 
 		return new Promise(function (resolve, reject) {
 			function handleDomReady() {
