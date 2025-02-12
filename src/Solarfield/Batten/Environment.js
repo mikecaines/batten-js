@@ -40,7 +40,8 @@
 	Environment.init = function (aOptions) {
 		var options = StructUtils.assign({
 			debug: false,
-			vars: {}
+			vars: {},
+			baseChainLinks: [],
 		}, aOptions);
 		
 		if (!self.App) self.App = {};
@@ -52,6 +53,12 @@
 			id: 'solarfield/batten-js',
 			namespace: 'Solarfield.Batten',
 		});
+
+		if (options.baseChainLinks) {
+			for (const link of options.baseChainLinks) {
+				Environment._be_baseChain.push(link);
+			}
+		}
 		
 		//append app
 		Environment._be_baseChain.push({
